@@ -52,6 +52,8 @@ function App() {
   return (
     <Router>
 
+      {/* Wrap all pages in 80% width container */}
+      <div className="w-[90%] mx-auto">
       <Navbar cartCount={cartCount} cartItems={cartItems} />
       <Routes>
         {/* 🏠 Home Page */}
@@ -97,9 +99,10 @@ function App() {
         <Route path="/favorite" element={<Favourite />} />
 
       </Routes>
+      </div>
       <Footer />
 
-    </Router>
+    </Router >
   );
 }
 
