@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const CarouselProduct = ({ onAddToCart }) => {
+const CarouselProduct = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const products = [
@@ -177,11 +177,11 @@ const CarouselProduct = ({ onAddToCart }) => {
                         </div>
                       </div>
 
-                      <button onClick={onAddToCart}
+                      <button
                         className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full font-semibold flex items-center justify-center gap-2 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm cursor-pointer"
                       >
                         <ShoppingCart size={20} />
-                        Add to Cart
+                        Buy now
                       </button>
                     </div>
                   </div>

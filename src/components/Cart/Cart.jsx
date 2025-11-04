@@ -1,170 +1,171 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Trash2, Plus, Minus, ShoppingBag, CreditCard, Tag } from "lucide-react";
+import { Link } from 'react-router-dom'
 
-const Cart = () => {
-    const [count,setCount] = React.useState(0);
-    function increment(){
-        setCount(count + 1);
-    }
-    function decrement(){
-        setCount(count - 1);
-    }
+const Cart = ({ cartItems, setCartItems }) => {
+  const [quantities, setQuantities] = useState({});
+  const [couponCode, setCouponCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [appliedCoupon, setAppliedCoupon] = useState("");
+
+  const getQuantity = (index) => quantities[index] || 1;
+
+  const updateQuantity = (index, delta) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [index]: Math.max(1, (prev[index] || 1) + delta),
+    }));
+  };
+
+  
+  const removeItem = (indexToRemove) => {
+    setCartItems(cartItems.filter((_, index) => index !== indexToRemove));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const subtotal = cartItems.reduce((sum, item, index) => sum + item.price * getQuantity(index), 0);
+  const discountAmount = (subtotal * discount) / 100;
+  const tax = (subtotal - discountAmount) * 0.1;
+  const shipping = subtotal > 500 ? 0 : 15;
+  const total = subtotal - discountAmount + tax + shipping;
+
   return (
-    <div class="max-w-5xl max-lg:max-w-2xl mx-auto p-4">
-          <h1 class="text-xl font-semibold text-slate-900">Shopping Cart</h1>
-          <div class="grid lg:grid-cols-3 lg:gap-x-8 gap-x-6 gap-y-8 mt-6">
-              <div class="lg:col-span-2 space-y-6">
-                  <div class="flex gap-4 bg-white px-4 py-6 rounded-md shadow-sm border border-gray-200">
-                      <div class="flex gap-6 sm:gap-4 max-sm:flex-col">
-                          <div class="w-24 h-24 max-sm:w-24 max-sm:h-24 shrink-0">
-                              <img src='https://readymadeui.com/images/watch1.webp' class="w-full h-full object-contain" />
-                          </div>
-                          <div class="flex flex-col gap-4">
-                              <div>
-                                  <h3 class="text-sm sm:text-base font-semibold text-slate-900">Stylish Golden Watch</h3>
-                                  <p class="text-[13px] font-medium text-slate-500 mt-2 flex items-center gap-2">Color: <span class="inline-block w-4 h-4 rounded-sm bg-[#ac7f48]"></span></p>
-                              </div>
-                              <div class="mt-auto">
-                                  <h3 class="text-sm font-semibold text-slate-900">$120.00</h3>
-                              </div>
-                          </div>
-                      </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center gap-3 mb-4">
+          <ShoppingBag className="w-8 h-8 text-slate-800" />
+          <h1 className="text-3xl font-bold text-slate-900">Shopping Cart</h1>
+          <span className="ml-auto text-sm text-slate-600 bg-white px-4 py-2 rounded-full shadow-sm">
+            {cartItems.length} {cartItems.length === 1 ? "item" : "items"}
+          </span>
+          {cartItems.length > 0 && (
+            <button onClick={clearCart} className="ml-4 px-4 py-2 bg-red-600 text-white rounded-lg flex items-center gap-2 hover:bg-red-700">
+              <Trash2 className="w-4 h-4" /> Clear All
+            </button>
+          )}
+        </div>
 
-                      <div class="ml-auto flex flex-col">
-                          <div class="flex items-start gap-4 justify-end">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer fill-slate-400 hover:fill-pink-600 inline-block" viewBox="0 0 64 64">
-                                  <path d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z" data-original="#000000"></path>
-                              </svg>
-
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer fill-slate-400 hover:fill-red-600 inline-block" viewBox="0 0 24 24">
-                                  <path d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z" data-original="#000000"></path>
-                                  <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z" data-original="#000000"></path>
-                              </svg>
-                          </div>
-                          <div class="flex items-center gap-3 mt-auto">
-                              <button type="button"
-                                  class="flex items-center justify-center w-[18px] h-[18px] cursor-pointer bg-slate-400 outline-none rounded-full">
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2 fill-white" viewBox="0 0 124 124">
-                                      <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z" data-original="#000000"></path>
-                                  </svg>
-                              </button>
-                              <span class="font-semibold text-base leading-[18px]">2</span>
-                              <button type="button"
-                                  class="flex items-center justify-center w-[18px] h-[18px] cursor-pointer bg-slate-800 outline-none rounded-full">
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2 fill-white" viewBox="0 0 42 42">
-                                      <path d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" data-original="#000000"></path>
-                                  </svg>
-                              </button>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="flex gap-4 bg-white px-4 py-6 rounded-md shadow-sm border border-gray-200">
-                      <div class="flex gap-6 sm:gap-4 max-sm:flex-col">
-                          <div class="w-24 h-24 max-sm:w-24 max-sm:h-24 shrink-0">
-                              <img src='https://readymadeui.com/images/watch5.webp' class="w-full h-full object-contain" />
-                          </div>
-                          <div class="flex flex-col gap-4">
-                              <div>
-                                  <h3 class="text-sm sm:text-base font-semibold text-slate-900">Stylish Smart Watch</h3>
-                                  <p class="text-[13px] font-medium text-slate-500 mt-2 flex items-center gap-2">Color: <span class="inline-block w-4 h-4 rounded-sm bg-[#e8dcdc]"></span></p>
-                              </div>
-                              <div class="mt-auto">
-                                  <h3 class="text-sm font-semibold text-slate-900">{count}</h3>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="ml-auto flex flex-col">
-                          <div class="flex items-start gap-4 justify-end">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer fill-slate-400 hover:fill-pink-600 inline-block" viewBox="0 0 64 64">
-                                  <path d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z" data-original="#000000"></path>
-                              </svg>
-
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer fill-slate-400 hover:fill-red-600 inline-block" viewBox="0 0 24 24">
-                                  <path d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z" data-original="#000000"></path>
-                                  <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z" data-original="#000000"></path>
-                              </svg>
-                          </div>
-                          <div class="flex items-center gap-3 mt-auto">
-                              <button type="button"
-                                  class="flex items-center justify-center w-[18px] h-[18px] cursor-pointer bg-slate-400 outline-none rounded-full">
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2 fill-white" viewBox="0 0 124 124">
-                                      <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z" data-original="#000000"></path>
-                                  </svg>
-                              </button>
-                              <span class="font-semibold text-base leading-[18px]">1</span>
-                              <button type="button"
-                                  class="flex items-center justify-center w-[18px] h-[18px] cursor-pointer bg-slate-800 outline-none rounded-full">
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2 fill-white" viewBox="0 0 42 42">
-                                      <path d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" data-original="#000000"></path>
-                                  </svg>
-                              </button>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="flex gap-4 bg-white px-4 py-6 rounded-md shadow-sm border border-gray-200">
-                      <div class="flex gap-6 sm:gap-4 max-sm:flex-col">
-                          <div class="w-24 h-24 max-sm:w-24 max-sm:h-24 shrink-0">
-                              <img src='https://readymadeui.com/images/sunglass6.webp' class="w-full h-full object-contain" />
-                          </div>
-                          <div class="flex flex-col gap-4">
-                              <div>
-                                  <h3 class="text-sm sm:text-base font-semibold text-slate-900">Round Glass</h3>
-                                  <p class="text-[13px] font-medium text-slate-500 mt-2 flex items-center gap-2">Color: <span class="inline-block w-4 h-4 rounded-sm bg-black"></span></p>
-                              </div>
-                              <div class="mt-auto">
-                                  <h3 class="text-sm font-semibold text-slate-900">$20.00</h3>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="ml-auto flex flex-col">
-                          <div class="flex items-start gap-4 justify-end">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer fill-slate-400 hover:fill-pink-600 inline-block" viewBox="0 0 64 64">
-                                  <path d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z" data-original="#000000"></path>
-                              </svg>
-
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 cursor-pointer fill-slate-400 hover:fill-red-600 inline-block" viewBox="0 0 24 24">
-                                  <path d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z" data-original="#000000"></path>
-                                  <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z" data-original="#000000"></path>
-                              </svg>
-                          </div>
-                          <div class="flex items-center gap-3 mt-auto">
-                              <button type="button"
-                                  class="flex items-center justify-center w-[18px] h-[18px] cursor-pointer bg-slate-400 outline-none rounded-full">
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2 fill-white" viewBox="0 0 124 124">
-                                      <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z" data-original="#000000"></path>
-                                  </svg>
-                              </button>
-                              <span class="font-semibold text-base leading-[18px]">1</span>
-                              <button type="button"
-                                  class="flex items-center justify-center w-[18px] h-[18px] cursor-pointer bg-slate-800 outline-none rounded-full">
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2 fill-white" viewBox="0 0 42 42">
-                                      <path d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" data-original="#000000"></path>
-                                  </svg>
-                              </button>
-                          </div>
-                      </div>
-                  </div>
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Cart Items */}
+          <div className="lg:col-span-2 space-y-4">
+            {cartItems.length === 0 ? (
+              <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+                <ShoppingBag className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+                <p className="text-slate-500 text-lg">Your cart is empty</p>
               </div>
-
-              <div class="bg-white rounded-md px-4 py-6 h-max shadow-sm border border-gray-200">
-                  <ul class="text-slate-500 font-medium space-y-4">
-                      <li class="flex flex-wrap gap-4 text-sm">Subtotal <span class="ml-auto font-semibold text-slate-900">$200.00</span></li>
-                      <li class="flex flex-wrap gap-4 text-sm">Shipping <span class="ml-auto font-semibold text-slate-900">$2.00</span></li>
-                      <li class="flex flex-wrap gap-4 text-sm">Tax <span class="ml-auto font-semibold text-slate-900">$4.00</span></li>
-                      <hr class="border-slate-300" />
-                      <li class="flex flex-wrap gap-4 text-sm font-semibold text-slate-900">Total <span class="ml-auto">$206.00</span></li>
-                  </ul>
-                  <div class="mt-8 space-y-4">
-                      <button type="button" class="text-sm px-4 py-2.5 w-full font-medium tracking-wide bg-slate-800 hover:bg-slate-900 text-white rounded-md cursor-pointer">Buy Now</button>
-                      <button type="button" class="text-sm px-4 py-2.5 w-full font-medium tracking-wide bg-slate-50 hover:bg-slate-100 text-slate-900 border border-gray-300 rounded-md cursor-pointer">Continue Shopping</button>
+            ) : (
+              cartItems.map((item, index) => (
+                <div key={index} className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-slate-200 relative">
+                  <div className="flex gap-6">
+                    <div className="w-32 h-32 rounded-xl overflow-hidden bg-slate-100 shrink-0">
+                      <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex-1 flex flex-col">
+                      <div className="flex justify-between items-start mb-3">
+                        <h3 className="text-lg font-semibold text-slate-900">{item.name}</h3>
+                      </div>
+                      <div className="mt-auto flex justify-between items-center">
+                        <div className="flex items-center gap-3 bg-slate-100 rounded-lg p-1">
+                          <button onClick={() => updateQuantity(index, -1)} className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-md transition-colors">
+                            <Minus className="w-4 h-4 text-slate-700" />
+                          </button>
+                          <span className="w-8 text-center font-semibold text-slate-900">{getQuantity(index)}</span>
+                          <button onClick={() => updateQuantity(index, 1)} className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-md transition-colors">
+                            <Plus className="w-4 h-4 text-slate-700" />
+                          </button>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-2xl font-bold text-slate-900">${(item.price * getQuantity(index)).toFixed(2)}</p>
+                          <p className="text-xs text-slate-500">${item.price.toFixed(2)} each</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-              </div>
+
+                  {/* Delete Single Item */}
+                  <button
+                    onClick={() => removeItem(index)}
+                    className="absolute top-2 right-2 text-red-600 p-2 hover:bg-red-100 rounded-full"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+              ))
+            )}
           </div>
-      </div>
-  )
-}
 
-export default Cart
+          {/* Order Summary */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-4 border border-slate-200">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Order Summary</h2>
+
+              {/* Coupon Code */}
+              <div className="mb-6">
+                <label className="text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+                  <Tag className="w-4 h-4" />
+                  Coupon Code
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                    placeholder="Enter code"
+                    className="flex-1 px-4 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  
+                </div>
+                {appliedCoupon && (
+                  <p className="text-xs text-green-600 mt-2 flex items-center gap-1">
+                    ✓ Coupon "{appliedCoupon}" applied
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-3 mb-6 pb-6 border-b border-slate-200">
+                <div className="flex justify-between text-slate-700">
+                  <span>Subtotal</span>
+                  <span className="font-medium">${subtotal.toFixed(2)}</span>
+                </div>
+                {discount > 0 && (
+                  <div className="flex justify-between text-green-600">
+                    <span>Discount ({discount}%)</span>
+                    <span className="font-medium">-${discountAmount.toFixed(2)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-slate-700">
+                  <span>Tax (10%)</span>
+                  <span className="font-medium">${tax.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-slate-700">
+                  <span>Shipping</span>
+                  <span className="font-medium">{shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}</span>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center mb-6 pb-6 border-b border-slate-200">
+                <span className="text-lg font-bold text-slate-900">Total</span>
+                <span className="text-2xl font-bold text-slate-900">${total.toFixed(2)}</span>
+              </div>
+
+              {/* Payment Options */}
+              <div className="space-y-3">
+              <Link to="/checkout" className="w-full">
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-xl">
+                  <CreditCard className="w-5 h-5" />
+                  Proceed to Checkout
+                </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Cart;

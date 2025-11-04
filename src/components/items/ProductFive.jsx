@@ -9,7 +9,7 @@ const ProductFive = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 lg:grid-rows-6 gap-4 p-4 sm:p-6 bg-gray-100 min-h-screen lg:min-h-0 lg:h-[500px]">
         {/* Product 1 - Large Card */}
-        <div className="sm:col-span-2 lg:col-span-6 lg:row-span-6 bg-white shadow-md rounded-lg relative overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl h-64 sm:h-80 lg:h-auto">
+        <div className="sm:col-span-2 lg:col-span-6 lg:row-span-6 bg-white shadow-md rounded-lg relative overflow-hidden transform transition-all duration-300 hover:scale-102 hover:shadow-xl h-64 sm:h-80 lg:h-auto">
           <img
             src="https://images.unsplash.com/photo-1491472253230-a044054ca35f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGFwdG9wJTIwY29tcHV0ZXJ8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000"
             alt="Product 1"

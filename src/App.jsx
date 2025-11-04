@@ -28,23 +28,31 @@ import Feature from "./components/Feature/Feature.jsx";
 import Favourite from "./components/Favourite/Favorite.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import { useState } from "react";
+import Checkout from "./components/Cart/Checkout.jsx";
 
 
 function App() {
 
 
-  //for cart function
+  //for add to cart functionality
   const [cartCount, setCartCount] = useState(0);
 
-  const addtoCart= () =>{
-    setCartCount(cartCount +1);
+  const addtoCart = () => {
+    setCartCount(cartCount + 1);
   }
 
+
+  //for cart items to move in cart page
+  const [cartItems, setCartItems] = useState([]);
+
+  const handleAddToCart = (item) => {
+    setCartItems([...cartItems, item]);
+  };
 
   return (
     <Router>
 
-      <Navbar  cartCount={cartCount}/>
+      <Navbar cartCount={cartCount} cartItems={cartItems} />
       <Routes>
         {/* 🏠 Home Page */}
         <Route
@@ -52,11 +60,11 @@ function App() {
           element={
             <div className="container mx-auto px-4">
               <Carousel />
-              <Laptop onAddToCart={addtoCart} />
+              <Laptop onAddToCart={addtoCart} handleAddToCart={handleAddToCart} />
               <Banner />
-              <Mobile onAddToCart={addtoCart} />
+              <Mobile onAddToCart={addtoCart} handleAddToCart={handleAddToCart} />
               <Brands />
-              <CarouselProduct onAddToCart={addtoCart} />
+              <CarouselProduct />
               <AnnouncementBanner />
               <ProductFive />
               <Banner3 />
@@ -66,16 +74,18 @@ function App() {
         />
 
         {/* 🛒 Cart Page */}
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
         {/* 📝 About Us Page */}
         <Route path="/aboutus" element={<Aboutus />} />
         {/* 📰 Blog Page */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
-
+        {/* 🌟 Feature Page */}
         <Route path="/feature" element={<Feature />} />
-
+        {/* 🛠️ Dashboard Page */}
         <Route path="/dashboard" element={<Dashboard />} />
+        {/* 🛒 Checkout Page */}
+        <Route path="/checkout" element={<Checkout cartItems={Checkout} />} />
 
         {/* Logins */}
         <Route path="/login" element={<Login />} />
