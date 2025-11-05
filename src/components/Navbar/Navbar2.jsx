@@ -5,7 +5,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 
 
 
-const Navbar2 = ({cartCount}) => {
+const Navbar2 = ({ cartCount }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isComponentsOpen, setIsComponentsOpen] = useState(false)
   const [isCoursesOpen, setIsCoursesOpen] = useState(false)
@@ -33,12 +33,10 @@ const Navbar2 = ({cartCount}) => {
   return (
     <div className="relative bg-white/50 backdrop-blur-sm border-t border-white/20">
       <div className="container mx-auto px-4 py-2">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between bg-blue-600 rounded-lg p-auto  h-14">
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center lg:space-x-1 overflow-visible">
             <Link to="/" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 rounded-lg hover:bg-white/50 transition-all">Home</Link>
-            <Link to="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 rounded-lg hover:bg-white/50 transition-all">Blog</Link>
-
             {/* Components Dropdown */}
             <div
               className="relative"
@@ -116,13 +114,11 @@ const Navbar2 = ({cartCount}) => {
 
             <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 rounded-lg hover:bg-white/50 transition-all">Articles</a>
             <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 rounded-lg hover:bg-white/50 transition-all">Videos</a>
+            <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white/50 rounded-lg transition-all">Laptop</a>
+            <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white/50 rounded-lg transition-all">Mobile</a>
+            <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white/50 rounded-lg transition-all">Electronics</a>
+            <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white/50 rounded-lg transition-all">Accessories</a>
           </div>
-
-          {/* Search and Mobile Menu Button */}
-
-
-
-          {/* Cart Icon  and favourite icon*/}
 
           <div className="flex items-center space-x-4 ml-auto">
             <Link to="/favorite">
@@ -244,8 +240,8 @@ const Navbar2 = ({cartCount}) => {
               </div>
             </div>
 
-            <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white/50 rounded-lg transition-all">Articles</a>
-            <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white/50 rounded-lg transition-all">Videos</a>
+            <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white/50 rounded-lg transition-all">Laptop</a>
+            <a href="#" className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white/50 rounded-lg transition-all">Mobile</a>
           </div>
         </div>
       </div>

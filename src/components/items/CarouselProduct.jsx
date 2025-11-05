@@ -141,7 +141,7 @@ const CarouselProduct = () => {
       <div className="w-full px-4">
         <div className="w-full px-5 py-0 h-15 flex justify-between items-center">
           <h2 className="text-3xl font-bold mb-6 mt-5">Flash Sales</h2>
-          <Link to="/Viewallitemthird" className="text-black hover:underline">View All</Link>
+          <Link to="/Viewallitemfirst" className="text-black hover:underline">View All</Link>
         </div>
         <div className="relative">
           <div className="overflow-hidden rounded-xl">

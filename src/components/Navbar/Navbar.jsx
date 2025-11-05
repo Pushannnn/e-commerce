@@ -38,12 +38,12 @@ const Navbar = ({ cartCount }) => {
 
             <div className="flex items-center gap-4">
               <div className="sm:flex sm:gap-4">
-                <Link className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm" to="/Login">
+                <Link className="rounded-md bg-green-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm" to="/Login">
                   Login
                 </Link>
 
                 <div className="hidden sm:flex">
-                  <Link className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600" to="/register">
+                  <Link className="rounded-md bg-pink-100 px-5 py-2.5 text-sm font-medium text-teal-600" to="/register">
                     Register
                   </Link>
                 </div>

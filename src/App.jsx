@@ -18,8 +18,6 @@ import Login from "./components/Logins/Login.jsx";
 import Register from "./components/Logins/Register.jsx";
 import Forgetpassword from "./components/Logins/Forgetpassword.jsx";
 import Viewallitemfirst from "./components/Product View/Viewallitemfirst.jsx";
-import Viewallitemsecond from "./components/Product View/Viewallitemsecond.jsx";
-import Viewallitemthird from "./components/Product View/Viewallitemthird.jsx";
 import Cart from "./components/Cart/Cart.jsx";
 import Aboutus from "./components/About us/Aboutus.jsx";
 import Blog from "./components/Blog/Blog.jsx";
@@ -29,7 +27,8 @@ import Favourite from "./components/Favourite/Favorite.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import { useState } from "react";
 import Checkout from "./components/Cart/Checkout.jsx";
-
+import SingleProductView from "./components/Product View/SingleProductView.jsx";
+import { laptops } from './data/LaptopList.jsx';
 
 function App() {
 
@@ -54,51 +53,59 @@ function App() {
 
       {/* Wrap all pages in 80% width container */}
       <div className="w-[90%] mx-auto">
-      <Navbar cartCount={cartCount} cartItems={cartItems} />
-      <Routes>
-        {/* 🏠 Home Page */}
-        <Route
-          path="/"
-          element={
-            <div className="container mx-auto px-4">
-              <Carousel />
-              <Laptop onAddToCart={addtoCart} handleAddToCart={handleAddToCart} />
-              <Banner />
-              <Mobile onAddToCart={addtoCart} handleAddToCart={handleAddToCart} />
-              <Brands />
-              <CarouselProduct />
-              <AnnouncementBanner />
-              <ProductFive />
-              <Banner3 />
-              <ItemTwo />
-            </div>
-          }
-        />
+        <Navbar cartCount={cartCount} cartItems={cartItems} />
+        <Routes>
+          {/* 🏠 Home Page */}
+          <Route
+            path="/"
+            element={
+              <div className="container mx-auto px-4">
+                <Carousel />
+                <Laptop onAddToCart={addtoCart} handleAddToCart={handleAddToCart} />
+                <Banner />
+                <Mobile onAddToCart={addtoCart} handleAddToCart={handleAddToCart} />
+                <Brands />
+                <CarouselProduct />
+                <AnnouncementBanner />
+                <ProductFive />
+                <Banner3 />
+                <ItemTwo />
+              </div>
+            }
+          />
 
-        {/* 🛒 Cart Page */}
-        <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
-        {/* 📝 About Us Page */}
-        <Route path="/aboutus" element={<Aboutus />} />
-        {/* 📰 Blog Page */}
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogDetail />} />
-        {/* 🌟 Feature Page */}
-        <Route path="/feature" element={<Feature />} />
-        {/* 🛠️ Dashboard Page */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        {/* 🛒 Checkout Page */}
-        <Route path="/checkout" element={<Checkout cartItems={Checkout} />} />
+          {/* 🛒 Cart Page */}
+          <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
+          {/* 📝 About Us Page */}
+          <Route path="/aboutus" element={<Aboutus />} />
+          {/* 📰 Blog Page */}
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+          {/* 🌟 Feature Page */}
+          <Route path="/feature" element={<Feature />} />
+          {/* 🛠️ Dashboard Page */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          {/* 🛒 Checkout Page */}
+          <Route path="/checkout" element={<Checkout cartItems={Checkout} />} />
 
-        {/* Logins */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forget-password" element={<Forgetpassword />} />
-        <Route path="/Viewallitemfirst" element={<Viewallitemfirst />} />
-        <Route path="/Viewallitemsecond" element={<Viewallitemsecond />} />
-        <Route path="/Viewallitemthird" element={<Viewallitemthird />} />
-        <Route path="/favorite" element={<Favourite />} />
+          {/* Logins */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forget-password" element={<Forgetpassword />} />
+          <Route path="/Viewallitemfirst" element={<Viewallitemfirst />} />
+          <Route path="/Viewallitemfirst" element={<Viewallitemfirst />} />
+          <Route path="/Viewallitemfirst" element={<Viewallitemfirst />} />
+          <Route path="/favorite" element={<Favourite />} />
 
-      </Routes>
+
+          {/* productview for single item */}
+          <Route
+            path="/product/:type/:id"
+            element={<SingleProductView onAddToCart={addtoCart} handleAddToCart={handleAddToCart} />}
+          />
+
+
+        </Routes>
       </div>
       <Footer />
 

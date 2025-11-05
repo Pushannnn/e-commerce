@@ -141,8 +141,8 @@ const Viewallitemfirst = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 min-[1200px]:!grid-cols-5 gap-4 mt-8">
         {products.map((product) => (
           <div key={product.id} className="flex flex-col border border-gray-300 shadow-sm rounded-md p-1.5 transition-all relative overflow-hidden">
-            <div 
-              onClick={() => handleProductClick(product.id)} 
+            <div
+              onClick={() => handleProductClick(product.id)}
               className="block cursor-pointer"
             >
               <div className="w-full bg-slate-50 rounded-md overflow-hidden">
@@ -165,9 +165,9 @@ const Viewallitemfirst = () => {
             </div>
             <div className="mt-3 h-10">
               <div className="flex items-center absolute bottom-0 left-0 right-0 w-full h-10">
-                <button 
-                  type="button" 
-                  title="Save" 
+                <button
+                  type="button"
+                  title="Save"
                   onClick={(e) => {
                     e.stopPropagation();
                     console.log('Saved product:', product.id);
@@ -178,8 +178,8 @@ const Viewallitemfirst = () => {
                     <path d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z" />
                   </svg>
                 </button>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     console.log('Added to bag:', product.id);
