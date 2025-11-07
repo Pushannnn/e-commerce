@@ -52,7 +52,7 @@ function App() {
     <Router>
 
       {/* Wrap all pages in 80% width container */}
-      <div className="w-[90%] mx-auto">
+      {/* <div className="w-[90%] mx-auto"> */}
         <Navbar cartCount={cartCount} cartItems={cartItems} />
         <Routes>
           {/* 🏠 Home Page */}
@@ -106,7 +106,7 @@ function App() {
 
 
         </Routes>
-      </div>
+      {/* </div> */}
       <Footer />
 
     </Router >
